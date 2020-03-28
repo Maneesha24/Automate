@@ -1,21 +1,49 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="text-center p-3">
+  <img src="https://automate.io/assets/img/automate-io-blue.png" />
+  <header class="card d-flex flex-row mt-2 p-2">
+      <i class="fas fa-plus-circle"></i>
+      <i class="fas fa-edit"></i>
+      <i class="fas fa-trash-alt"></i>
+  </header>
+  <main class="d-flex mt-4">
+    <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '35%' }">
+      <header class="d-flex align-items-center bg-purple text-light text-left pt-3 pb-3">
+        <i class="text-light fas fa-angle-double-left" (click)="collapsibleFolders()"></i>
+        <span>List of folders</span>
+      </header>
+      <ul class="list-group list-group-flush text-left folders" *ngIf="automateData && automateData.length">
+        <li class="list-group-item" *ngFor="let folder of automateData; let i = index"
+        [class.active]="selectedFolderIndex === i" (click)="onFolderClick($event, i)">{{folder?.folderName}}</li>
+      </ul>
+      <input placeholder="Enter folder name" class="m-3 p-2" *ngIf="showAddFolderInput" (blur)="onNewFolderInput($event)" />
+      <footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFolder()">
+        <i class="fas fa-plus-circle mt-3"></i>
+        <h6 class="pt-4">Add new folder</h6>
+      </footer>
+    </section>
+    <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '35%' }">
+      <header class="d-flex align-items-center bg-purple text-light text-left pt-3 pb-3">
+        <i class="text-light fas fa-angle-double-left" (click)="collapsibleFolders()"></i>
+        <span>{{activeFolder}}</span>
+      </header>
+      <ul class="list-group list-group-flush text-left files" *ngIf="activeFolder">
+        <li *ngFor="let file of files; let i = index" (click)="onFileClick($event, i)" [class.active]="selectedFileIndex === i" class="list-group-item">
+          <h6 class="file-body">{{file?.body}}</h6>
+          <span class="text-secondary file-time">{{file?.updatedAt}}</span>
+        </li>
+      </ul>
+      <footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFile()">
+          <i class="fas fa-plus-circle mt-3"></i>
+          <h6 class="pt-4">Add new file</h6>
+      </footer>
+    </section>
+    <section class="card mx-2">
+      <header class="d-flex justify-content-between align-items-center bg-purple text-light text-left pt-3 pb-3">
+        <h6 class="px-4 file-body">{{files && files.length ? files[selectedFileIndex]?.body : 'Files'}}</h6>
+        <i *ngIf="files && files.length" class="text-white fas fa-trash-alt" (click)="deleteFile(files[selectedFileIndex].body)"></i>
+      </header>
+      <textarea *ngIf="activeFolder" (blur)="onNewFileInput($event)" [(ngModel)]="fileInput" rows="20" placeholder="Start typing ..." class="m-3 p-2"></textarea>
+    </section>
+  </main>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
 <router-outlet></router-outlet>
