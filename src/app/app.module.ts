@@ -8,6 +8,7 @@ import { NgRedux, NgReduxModule } from '@angular-redux/store'
 import { automateReducer, automateState } from './store/reducers';
 import { AutomateFileModule } from './components/automate-file/automate-file.module';
 import { AutomateFolderModule } from './components/automate-folder/automate-folder.module';
+import { AutomateInputModule } from './components/automate-input/automate-input.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AutomateFolderModule } from './components/automate-folder/automate-fold
     AppRoutingModule,
     NgReduxModule,
     AutomateFolderModule,
-    AutomateFileModule
+    AutomateFileModule,
+    AutomateInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

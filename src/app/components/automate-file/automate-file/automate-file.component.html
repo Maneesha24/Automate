@@ -1,11 +1,11 @@
 <header class="d-flex align-items-center bg-purple text-light text-left pt-3 pb-3">
-  <i class="text-light fas fa-angle-double-left" (click)="collapsibleFolders()"></i>
+  <i class="text-light fas fa-angle-double-left" (click)="collapsibleFiles()"></i>
   <span>{{activeFolder}}</span>
 </header>
 <ul class="list-group list-group-flush text-left files" *ngIf="activeFolder">
-  <li *ngFor="let file of files; let i = index" (click)="onFileClick($event, i)"
+  <li *ngFor="let file of files; let i = index" (click)="onFileClick(i, file)"
     [class.active]="selectedFileIndex === i" class="list-group-item">
-    <h6 class="file-body">{{file?.body}}</h6>
+    <h6 class="file-body">{{file?.fileBody}}</h6>
     <span class="text-secondary file-time">{{file?.updatedAt}}</span>
   </li>
 </ul>

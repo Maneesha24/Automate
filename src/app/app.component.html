@@ -6,18 +6,14 @@
       <i class="fas fa-trash-alt"></i>
   </header>
   <main class="d-flex mt-4">
-    <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '25%' }">
-      <app-automate-folder (collapsibleButtonClick)="onCollapsibleButtonClick($event)" (activeFolderClick)="onactiveFolderClick($event)"></app-automate-folder>
-    </section>
     <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '35%' }">
-      <app-automate-file [activeFolder]="activeFolder"></app-automate-file>
+      <app-automate-folder (collapsibleFolderBtnClick)="onCollapsibleFolderBtnClick($event)" (activeFolderClick)="onactiveFolderClick($event)"></app-automate-folder>
+    </section>
+    <section class="card mx-2" [ngStyle]="{ 'width' : showFileSection ? '100%' : '35%' }">
+      <app-automate-file (collapsibleFileBtnClick)="onCollapsibleFileBtnClick($event)" (fileDetails)="onFileDetails($event)" [activeFolder]="activeFolder"></app-automate-file>
     </section>
     <section class="card mx-2">
-      <header class="d-flex justify-content-between align-items-center bg-purple text-light text-left pt-3 pb-3">
-        <h6 class="px-4 file-body">{{files && files.length ? files[selectedFileIndex]?.body : 'Files'}}</h6>
-        <i *ngIf="files && files.length" class="text-white fas fa-trash-alt" (click)="deleteFile(files[selectedFileIndex].body)"></i>
-      </header>
-      <textarea *ngIf="activeFolder" (blur)="onNewFileInput($event)" [(ngModel)]="fileInput" rows="20" placeholder="Start typing ..." class="m-3 p-2"></textarea>
+      <app-automate-input [activeFile]="activeFile" [activeFolder]="activeFolder"></app-automate-input>
     </section>
   </main>
 </div>

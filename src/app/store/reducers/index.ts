@@ -1,5 +1,5 @@
 
-import { ADD_FOLDER } from '../actions/index';
+import { ADD_FOLDER, ADD_FILE, UPDATE_FILE, DELETE_FILE } from '../actions/index';
 
 let initialState = [];
 
@@ -32,6 +32,39 @@ export const automateReducer = (state = automateState, action) => {
       window.localStorage.setItem('automate', JSON.stringify(state));
       state.automate = JSON.parse(window.localStorage.getItem('automate'));
       return state.automate;
+
+    case ADD_FILE:
+      state.automate.map(folder => {
+        if (folder.folderName === action.payload.folderName) {
+          folder.files.unshift(action.payload.file);
+        }
+      });
+      window.localStorage.setItem('automate', JSON.stringify(state));
+      state.automate = JSON.parse(window.localStorage.getItem('automate'));
+      return state.automate;
+    case UPDATE_FILE:
+        state.automate.map(folder => {
+          if (folder.folderName === action.payload.folderName) {
+            folder.files.map(file => {
+              if (file._id === action.payload.id) {
+                file.fileBody = action.payload.file.fileBody;
+                file.updatedAt = action.payload.file.updatedAt;
+              }
+            });
+          }
+        });
+        window.localStorage.setItem('automate', JSON.stringify(state));
+        state.automate = JSON.parse(window.localStorage.getItem('automate'));
+        return state.automate;
+    case DELETE_FILE:
+        state.automate.map(folder => {
+          if (folder.folderName === action.payload.folderName) {
+            folder.files = folder.files.filter(file => file._id !== action.payload.id)
+          }
+        });
+        window.localStorage.setItem('automate', JSON.stringify(state));
+        state.automate = JSON.parse(window.localStorage.getItem('automate'));
+        return state.automate;
   }
   return state.automate;
 };

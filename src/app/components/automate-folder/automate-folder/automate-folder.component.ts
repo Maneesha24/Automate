@@ -11,7 +11,7 @@ import { ADD_FOLDER } from '../../../store/actions/index';
 export class AutomateFolderComponent implements OnInit {
 
   @Output() activeFolderClick: EventEmitter<any> = new EventEmitter<any>();
-  @Output() collapsibleButtonClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() collapsibleFolderBtnClick: EventEmitter<any> = new EventEmitter<any>();
 
   automateData = [];
   showAddFolderInput = false;
@@ -41,7 +41,7 @@ export class AutomateFolderComponent implements OnInit {
 
   collapsibleFolders() {
     this.showFolderSection = !this.showFolderSection;
-    this.collapsibleButtonClick.emit( this.showFolderSection);
+    this.collapsibleFolderBtnClick.emit( this.showFolderSection);
   }
 
   onNewFolderInput(event) {
