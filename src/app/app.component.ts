@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,15 +20,12 @@ export class AppComponent implements OnInit {
   fileInput = '';
   files = [];
 
+  @select('automate') public automate$: Observable<any>;
+
+  constructor() { }
+
   ngOnInit() {
 
-    if (window && window.localStorage && JSON.parse(window.localStorage.getItem('automate'))) {
-      this.automateData = JSON.parse(window.localStorage.getItem('automate'));
-      this.activeFolder = JSON.parse(window.localStorage.getItem('automate'))[0].folderName;
-    } else {
-      window.localStorage.setItem('automate', JSON.stringify([{ folderName: 'Default', files: [] }]));
-      this.automateData = JSON.parse(window.localStorage.getItem('automate'));
-    }
     this.automateData.map(folder => {
       if (folder && folder.folderName === this.activeFolder) {
         this.files = folder.files;
@@ -35,22 +34,12 @@ export class AppComponent implements OnInit {
     this.fileInput = this.files && this.files[this.selectedFileIndex] && this.files[this.selectedFileIndex].body;
   }
 
-  onAddNewFolder() {
-    this.showAddFolderInput = true;
-  }
-
   onAddNewFile() {
     this.showAddFileInput = true;
   }
 
-  onFolderClick(event, i) {
-    this.activeFolder = event.target.innerText;
-    this.automateData.map(folder => {
-      if (folder.folderName === this.activeFolder) {
-        this.files = folder.files;
-      }
-    });
-    this.selectedFolderIndex = i;
+  onCollapsibleButtonClick(event) {
+    this.showFolderSection = event;
   }
 
   onFileClick(event, i) {
@@ -59,22 +48,8 @@ export class AppComponent implements OnInit {
     this.fileInput = this.files[this.selectedFileIndex].body;
   }
 
-  onNewFolderInput(event) {
-    const automateData = window && window.localStorage && JSON.parse(window.localStorage.getItem('automate'))
-    ? JSON.parse(window.localStorage.getItem('automate')) :
-    window.localStorage.setItem('automate', JSON.stringify([{ folderName: 'Default' }]));
-    const newFolder = {
-      folderName: event.target.value,
-      files: []
-    };
-    automateData.unshift(newFolder);
-    window.localStorage.setItem('automate', JSON.stringify(automateData));
-    this.showAddFolderInput = false;
-    this.automateData = window && window.localStorage && JSON.parse(window.localStorage.getItem('automate'));
-  }
-
-  collapsibleFolders() {
-    this.showFolderSection = !this.showFolderSection;
+  onactiveFolderClick(event) {
+    this.activeFolder = event;
   }
 
   onNewFileInput(event) {

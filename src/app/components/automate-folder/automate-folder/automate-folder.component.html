@@ -1,0 +1,13 @@
+<header class="d-flex align-items-center bg-purple text-light text-left pt-3 pb-3">
+  <i class="text-light fas fa-angle-double-left" (click)="collapsibleFolders()"></i>
+  <span>List of folders</span>
+</header>
+<ul class="list-group list-group-flush text-left folders" *ngIf="automateData && automateData.length">
+  <li class="list-group-item" *ngFor="let folder of automateData; let i = index"
+    [class.active]="selectedFolderIndex === i" (click)="onFolderClick($event, i)">{{folder?.folderName}}</li>
+</ul>
+<input placeholder="Enter folder name" class="p-2" *ngIf="showAddFolderInput" (blur)="onNewFolderInput($event)" />
+<footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFolder()">
+  <i class="fas fa-plus-circle mt-3"></i>
+  <h6 class="pt-4">Add new folder</h6>
+</footer>

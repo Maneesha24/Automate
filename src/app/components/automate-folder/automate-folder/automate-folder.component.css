@@ -1,0 +1,11 @@
+.folders{
+  min-height: 60vh;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+input{
+  width: 90%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

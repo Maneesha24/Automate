@@ -6,36 +6,11 @@
       <i class="fas fa-trash-alt"></i>
   </header>
   <main class="d-flex mt-4">
-    <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '35%' }">
-      <header class="d-flex align-items-center bg-purple text-light text-left pt-3 pb-3">
-        <i class="text-light fas fa-angle-double-left" (click)="collapsibleFolders()"></i>
-        <span>List of folders</span>
-      </header>
-      <ul class="list-group list-group-flush text-left folders" *ngIf="automateData && automateData.length">
-        <li class="list-group-item" *ngFor="let folder of automateData; let i = index"
-        [class.active]="selectedFolderIndex === i" (click)="onFolderClick($event, i)">{{folder?.folderName}}</li>
-      </ul>
-      <input placeholder="Enter folder name" class="m-3 p-2" *ngIf="showAddFolderInput" (blur)="onNewFolderInput($event)" />
-      <footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFolder()">
-        <i class="fas fa-plus-circle mt-3"></i>
-        <h6 class="pt-4">Add new folder</h6>
-      </footer>
+    <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '25%' }">
+      <app-automate-folder (collapsibleButtonClick)="onCollapsibleButtonClick($event)" (activeFolderClick)="onactiveFolderClick($event)"></app-automate-folder>
     </section>
     <section class="card mx-2" [ngStyle]="{ 'width' : showFolderSection ? '100%' : '35%' }">
-      <header class="d-flex align-items-center bg-purple text-light text-left pt-3 pb-3">
-        <i class="text-light fas fa-angle-double-left" (click)="collapsibleFolders()"></i>
-        <span>{{activeFolder}}</span>
-      </header>
-      <ul class="list-group list-group-flush text-left files" *ngIf="activeFolder">
-        <li *ngFor="let file of files; let i = index" (click)="onFileClick($event, i)" [class.active]="selectedFileIndex === i" class="list-group-item">
-          <h6 class="file-body">{{file?.body}}</h6>
-          <span class="text-secondary file-time">{{file?.updatedAt}}</span>
-        </li>
-      </ul>
-      <footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFile()">
-          <i class="fas fa-plus-circle mt-3"></i>
-          <h6 class="pt-4">Add new file</h6>
-      </footer>
+      <app-automate-file [activeFolder]="activeFolder"></app-automate-file>
     </section>
     <section class="card mx-2">
       <header class="d-flex justify-content-between align-items-center bg-purple text-light text-left pt-3 pb-3">
