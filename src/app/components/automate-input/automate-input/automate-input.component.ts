@@ -16,6 +16,8 @@ export class AutomateInputComponent implements OnInit, OnChanges {
 
   @Input() activeFile;
 
+  @Input() filesData;
+
   fileInput = '';
 
   files: any;
@@ -25,16 +27,24 @@ export class AutomateInputComponent implements OnInit, OnChanges {
   constructor(private ngRedux: NgRedux<any>) { }
 
   ngOnInit() {
-    this.fileInput = this.activeFile.fileBody;
+    console.log('files', this.filesData, this.activeFile);
+    // if (!this.filesData.length) {
+    //   this.fileInput = '';
+    // } else {
+    //   this.fileInput = this.activeFile.fileBody;
+    // }
   }
 
   ngOnChanges() {
+    this.fetchFilesLength();
     this.fileInput = this.activeFile.fileBody;
+    console.log('files chnages', this.activeFolder, this.activeFile);
   }
 
   deleteFile(id) {
     this.ngRedux.dispatch({ type: DELETE_FILE, payload: { folderName: this.activeFolder, id }});
     this.fileInput = '';
+    this.activeFile = {};
   }
 
   onNewFileInput(event, activeFile) {
@@ -42,7 +52,7 @@ export class AutomateInputComponent implements OnInit, OnChanges {
       this.files = getFiles(automate, this.activeFolder);
     });
     this.fileInput = event.target.value;
-    if (activeFile._id) {
+    if (this.fileInput.length && activeFile._id) {
       const updatedfile = {
         _id: activeFile._id,
         fileBody: this.fileInput,
@@ -50,17 +60,29 @@ export class AutomateInputComponent implements OnInit, OnChanges {
       };
       this.ngRedux.dispatch({  type: UPDATE_FILE, payload: { folderName: this.activeFolder, updatedfile }});
       this.fileInput = '';
+      this.activeFile = {};
     } else {
       if (this.fileInput.length) {
         const file = {
-          _id: `${this.activeFolder}-${this.files[0].length}`,
+          _id: `${this.activeFolder}-${this.files && this.files[0] && this.files[0].length}`,
           fileBody: this.fileInput,
           updatedAt: new Date()
         };
         this.ngRedux.dispatch({  type: ADD_FILE, payload: { folderName: this.activeFolder, file }});
         this.fileInput = '';
+        this.activeFile = {};
       }
     }
+  }
+
+  fetchFilesLength() {
+    this.automate$.subscribe(automate => {
+      automate.map(folder => {
+        if (folder.folderName === this.activeFolder) {
+          this.files = folder.files;
+        }
+      });
+    });
   }
 
 }

@@ -32,6 +32,7 @@ i{
 }
 
 input, textarea{
+  resize: none;
   outline: none;
   color: grey;
   border: none;

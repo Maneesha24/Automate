@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
+import { getFiles } from './utils/getFiles';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  automateData = [];
   activeFolder = '';
   activeFile = {};
   showFolderSection = true;
@@ -21,6 +22,11 @@ export class AppComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.automate$.subscribe(automate => {
+      this.activeFolder = automate[0].folderName;
+      // console.log('asdasd', automate[0].folderName);
+      this.files = getFiles(automate, this.activeFolder)[0].files;
+    });
   }
 
   onCollapsibleFolderBtnClick(event) {

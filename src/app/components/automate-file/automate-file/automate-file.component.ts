@@ -29,11 +29,13 @@ export class AutomateFileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.selectedFileIndex = -1;
     this.fetchFiles();
-  }
-
-  onAddNewFile() {
-    this.showAddFileInput = true;
+    const fileDetails = {
+      totalFiles: [],
+      activeFile: {}
+    };
+    this.fileDetails.emit(fileDetails);
   }
 
   collapsibleFiles() {
