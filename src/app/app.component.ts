@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { select, NgRedux } from '@angular-redux/store';
+import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { ADD_FILE, DELETE_FILE } from './store/actions';
-import { getFiles } from './utils/getFiles';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +17,7 @@ export class AppComponent implements OnInit {
 
   @select('automate') public automate$: Observable<any>;
 
-  constructor(private ngRedux: NgRedux<any>) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -39,7 +36,7 @@ export class AppComponent implements OnInit {
 
   onFileDetails(event) {
     this.fileInput = event.activeFile.fileBody;
-    this.activeFile = event.activeFile._id;
+    this.activeFile = event.activeFile;
     this.files = event.totalFiles;
   }
 }

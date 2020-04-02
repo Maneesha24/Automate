@@ -1,6 +1,5 @@
 <header class="d-flex justify-content-between align-items-center bg-purple text-light text-left pt-3 pb-3">
-    <h6 class="px-4 file-body">{{fileInput ? fileInput : 'Files'}}</h6>
-    {{activeFile?._id}}
-    <i class="text-white fas fa-trash-alt" (click)="deleteFile(activeFile)"></i>
+    <h6 class="px-4 file-body">{{fileInput}}</h6>
+    <i class="text-white fas fa-trash-alt" (click)="deleteFile(activeFile._id)"></i>
 </header>
-<textarea (blur)="onNewFileInput($event)" [(ngModel)]="fileInput" rows="20" placeholder="Start typing ..." class="w90p mt-3 m-2 p-2"></textarea>
+<textarea (blur)="onNewFileInput($event, activeFile._id)" [(ngModel)]="fileInput" rows="20" placeholder="Start typing ..." class="w90p mt-3 m-2 p-2"></textarea>

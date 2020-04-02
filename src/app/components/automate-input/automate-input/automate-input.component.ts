@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { DELETE_FILE, ADD_FILE } from 'src/app/store/actions';
 import { getFiles } from 'src/app/utils/getFiles';
+import { UPDATE_FILE } from '../../../store/actions/index';
 
 @Component({
   selector: 'app-automate-input',
   templateUrl: './automate-input.component.html',
   styleUrls: ['./automate-input.component.css']
 })
-export class AutomateInputComponent implements OnInit {
+export class AutomateInputComponent implements OnInit, OnChanges {
 
   @Input() activeFolder;
 
@@ -24,25 +25,38 @@ export class AutomateInputComponent implements OnInit {
   constructor(private ngRedux: NgRedux<any>) { }
 
   ngOnInit() {
+    this.fileInput = this.activeFile.fileBody;
+  }
+
+  ngOnChanges() {
+    this.fileInput = this.activeFile.fileBody;
   }
 
   deleteFile(id) {
     this.ngRedux.dispatch({ type: DELETE_FILE, payload: { folderName: this.activeFolder, id }});
   }
 
-  onNewFileInput(event) {
+  onNewFileInput(event, id) {
     this.automate$.subscribe(automate => {
       this.files = getFiles(automate, this.activeFolder);
     });
     this.fileInput = event.target.value;
-    if (this.fileInput.length) {
+    if (id) {
       const file = {
-        _id: `${this.activeFolder}-${this.files[0].length}`,
         fileBody: this.fileInput,
         updatedAt: new Date()
       };
-      this.ngRedux.dispatch({  type: ADD_FILE, payload: { folderName: this.activeFolder, file }});
-      this.fileInput = '';
+      this.ngRedux.dispatch({  type: UPDATE_FILE, payload: { folderName: this.activeFolder, file }});
+    } else {
+      if (this.fileInput.length) {
+        const file = {
+          _id: `${this.activeFolder}-${this.files[0].length}`,
+          fileBody: this.fileInput,
+          updatedAt: new Date()
+        };
+        this.ngRedux.dispatch({  type: ADD_FILE, payload: { folderName: this.activeFolder, file }});
+        this.fileInput = '';
+      }
     }
   }
 
