@@ -2,4 +2,4 @@
     <h6 class="px-4 file-body">{{fileInput ? fileInput : 'Files'}}</h6>
     <i class="text-white fas fa-trash-alt" *ngIf="fileInput" (click)="deleteFile(activeFile._id)"></i>
 </header>
-<textarea (blur)="onNewFileInput($event, activeFile)" [(ngModel)]="fileInput" rows="20" placeholder="Start typing ..." class="w90p mt-3 m-2 p-2"></textarea>
+<textarea (blur)="onNewFileInput($event, activeFile)" [(ngModel)]="fileInput" rows="22" placeholder="Start typing ..." class="w90p mt-3 m-2 p-2"></textarea>

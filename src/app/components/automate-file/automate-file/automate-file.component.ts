@@ -60,4 +60,8 @@ export class AutomateFileComponent implements OnInit, OnChanges {
       });
     });
   }
+
+  formatDate(date) {
+    return  `${new Date(date).toLocaleDateString()} ${new Date(date).toLocaleTimeString()}`;
+  }
 }

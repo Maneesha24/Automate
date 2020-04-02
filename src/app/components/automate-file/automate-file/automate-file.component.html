@@ -6,7 +6,7 @@
   <li [markjsHighlight]="searchTarget" *ngFor="let file of files; let i = index" (click)="onFileClick(i, file)"
     [class.active]="selectedFileIndex === i" class="list-group-item">
     <h6 class="file-body">{{file?.fileBody}}</h6>
-    <span class="text-secondary file-time">{{file?.updatedAt}}</span>
+    <span class="text-secondary file-time">{{formatDate(file.updatedAt)}}</span>
   </li>
 </ul>
 <!-- <footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFile()">
