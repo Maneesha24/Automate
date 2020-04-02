@@ -46,9 +46,9 @@ export const automateReducer = (state = automateState, action) => {
         state.automate.map(folder => {
           if (folder.folderName === action.payload.folderName) {
             folder.files.map(file => {
-              if (file._id === action.payload.id) {
-                file.fileBody = action.payload.file.fileBody;
-                file.updatedAt = action.payload.file.updatedAt;
+              if (file._id === action.payload.updatedfile._id) {
+                file.fileBody = action.payload.updatedfile.fileBody;
+                file.updatedAt = action.payload.updatedfile.updatedAt;
               }
             });
           }

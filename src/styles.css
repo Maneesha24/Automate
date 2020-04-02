@@ -34,10 +34,13 @@ i{
 input, textarea{
   outline: none;
   color: grey;
+  border: none;
+  box-shadow: 0px 1px 1px 0px rgba(27, 118, 222, 0.4);
 }
 
 input:focus{
-  border: 2px groove #5F84E1;
+  width: 250px;
+  box-shadow: 0px 3px 1px 0px rgba(27, 118, 222, 0.4);
 }
 
 .w100p{
@@ -48,3 +51,8 @@ input:focus{
   width: 90%;
 }
 
+.file-body{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

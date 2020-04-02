@@ -2,8 +2,12 @@
   font-size: 0.9rem;
 }
 
-.file-body{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.user-img{
+  width: 30px;
+  border-radius: 50%;
+  height: 30px;
+}
+
+.fa-search{
+  font-size: 1.01rem;
 }

@@ -3,13 +3,13 @@
   <span>{{activeFolder}}</span>
 </header>
 <ul class="list-group list-group-flush text-left files" *ngIf="activeFolder">
-  <li *ngFor="let file of files; let i = index" (click)="onFileClick(i, file)"
+  <li [markjsHighlight]="searchTarget" *ngFor="let file of files; let i = index" (click)="onFileClick(i, file)"
     [class.active]="selectedFileIndex === i" class="list-group-item">
     <h6 class="file-body">{{file?.fileBody}}</h6>
     <span class="text-secondary file-time">{{file?.updatedAt}}</span>
   </li>
 </ul>
-<footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFile()">
+<!-- <footer class="text-left d-flex align-items-center pb-3" (click)="onAddNewFile()">
   <i class="fas fa-plus-circle mt-3"></i>
-  <h6 class="pt-4">Add new file</h6>
-</footer>
+  <h6 class="pt-4 d-none d-md-block">Add new file</h6>
+</footer> -->

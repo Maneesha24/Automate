@@ -16,7 +16,7 @@ export class AutomateInputComponent implements OnInit, OnChanges {
 
   @Input() activeFile;
 
-  fileInput: '';
+  fileInput = '';
 
   files: any;
 
@@ -34,19 +34,22 @@ export class AutomateInputComponent implements OnInit, OnChanges {
 
   deleteFile(id) {
     this.ngRedux.dispatch({ type: DELETE_FILE, payload: { folderName: this.activeFolder, id }});
+    this.fileInput = '';
   }
 
-  onNewFileInput(event, id) {
+  onNewFileInput(event, activeFile) {
     this.automate$.subscribe(automate => {
       this.files = getFiles(automate, this.activeFolder);
     });
     this.fileInput = event.target.value;
-    if (id) {
-      const file = {
+    if (activeFile._id) {
+      const updatedfile = {
+        _id: activeFile._id,
         fileBody: this.fileInput,
         updatedAt: new Date()
       };
-      this.ngRedux.dispatch({  type: UPDATE_FILE, payload: { folderName: this.activeFolder, file }});
+      this.ngRedux.dispatch({  type: UPDATE_FILE, payload: { folderName: this.activeFolder, updatedfile }});
+      this.fileInput = '';
     } else {
       if (this.fileInput.length) {
         const file = {

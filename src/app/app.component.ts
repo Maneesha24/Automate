@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   showFileSection = true;
   fileInput = '';
   files = [];
+  searchInput = '';
 
   @select('automate') public automate$: Observable<any>;
 
@@ -39,4 +40,5 @@ export class AppComponent implements OnInit {
     this.activeFile = event.activeFile;
     this.files = event.totalFiles;
   }
+
 }

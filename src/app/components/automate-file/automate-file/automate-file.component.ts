@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class AutomateFileComponent implements OnInit, OnChanges {
 
   @Input() activeFolder;
+  @Input() searchTarget;
   @Output() fileDetails: EventEmitter<any> = new EventEmitter<any>();
   @Output() collapsibleFileBtnClick: EventEmitter<any> = new EventEmitter<any>();
   @select('automate') public automate$: Observable<any>;
@@ -24,7 +25,7 @@ export class AutomateFileComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.fetchFiles();
-    this.selectedFileIndex = 0;
+    this.selectedFileIndex = -1;
   }
 
   ngOnChanges() {
