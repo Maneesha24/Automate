@@ -38,11 +38,17 @@ export class AutomateFileComponent implements OnInit, OnChanges {
     this.fileDetails.emit(fileDetails);
   }
 
+  /**
+   * Function to collapsible file section
+   */
   collapsibleFiles() {
     this.showFileSection = !this.showFileSection;
     this.collapsibleFileBtnClick.emit(this.showFileSection);
   }
 
+  /**
+   * Function to select active file
+   */
   onFileClick(i, file) {
     this.activeFile =  file.fileBody;
     this.selectedFileIndex = i;
@@ -53,6 +59,9 @@ export class AutomateFileComponent implements OnInit, OnChanges {
     this.fileDetails.emit(fileDetails);
   }
 
+  /**
+   * Function to fetch all files from active folder
+   */
   fetchFiles() {
     this.automate$.subscribe(automate => {
       automate.map(folder => {
@@ -63,6 +72,9 @@ export class AutomateFileComponent implements OnInit, OnChanges {
     });
   }
 
+  /**
+   * Function to format date in required format
+   */
   formatDate(date) {
     return  `${new Date(date).toLocaleDateString()} ${new Date(date).toLocaleTimeString()}`;
   }

@@ -27,26 +27,25 @@ export class AutomateInputComponent implements OnInit, OnChanges {
   constructor(private ngRedux: NgRedux<any>) { }
 
   ngOnInit() {
-    console.log('files', this.filesData, this.activeFile);
-    // if (!this.filesData.length) {
-    //   this.fileInput = '';
-    // } else {
-    //   this.fileInput = this.activeFile.fileBody;
-    // }
   }
 
   ngOnChanges() {
     this.fetchFilesLength();
     this.fileInput = this.activeFile.fileBody;
-    console.log('files chnages', this.activeFolder, this.activeFile);
   }
 
+  /**
+   * Function to delete a particular file
+   */
   deleteFile(id) {
     this.ngRedux.dispatch({ type: DELETE_FILE, payload: { folderName: this.activeFolder, id }});
     this.fileInput = '';
     this.activeFile = {};
   }
 
+  /**
+   * Function to create a new file
+   */
   onNewFileInput(event, activeFile) {
     this.automate$.subscribe(automate => {
       this.files = getFiles(automate, this.activeFolder);
@@ -75,6 +74,9 @@ export class AutomateInputComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Function to fetch files of active folder
+   */
   fetchFilesLength() {
     this.automate$.subscribe(automate => {
       automate.map(folder => {

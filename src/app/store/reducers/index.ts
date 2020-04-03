@@ -23,6 +23,9 @@ export const automateState = {
 
 export const automateReducer = (state = automateState, action) => {
   switch (action.type) {
+    /**
+     * Reducer function to add a new folder
+     */
     case ADD_FOLDER:
       const newFolder = {
         folderName: action.payload.folderName,
@@ -32,7 +35,9 @@ export const automateReducer = (state = automateState, action) => {
       window.localStorage.setItem('automate', JSON.stringify(state));
       state.automate = JSON.parse(window.localStorage.getItem('automate'));
       return state.automate;
-
+    /**
+     * Reducer function to add a new file
+     */
     case ADD_FILE:
       state.automate.map(folder => {
         if (folder.folderName === action.payload.folderName) {
@@ -42,6 +47,9 @@ export const automateReducer = (state = automateState, action) => {
       window.localStorage.setItem('automate', JSON.stringify(state));
       state.automate = JSON.parse(window.localStorage.getItem('automate'));
       return state.automate;
+    /**
+     * Reducer function to update a existing file
+     */
     case UPDATE_FILE:
         state.automate.map(folder => {
           if (folder.folderName === action.payload.folderName) {
@@ -56,6 +64,9 @@ export const automateReducer = (state = automateState, action) => {
         window.localStorage.setItem('automate', JSON.stringify(state));
         state.automate = JSON.parse(window.localStorage.getItem('automate'));
         return state.automate;
+      /**
+       * Reducer function to delete a existing file
+       */
     case DELETE_FILE:
         state.automate.map(folder => {
           if (folder.folderName === action.payload.folderName) {

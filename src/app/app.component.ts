@@ -24,23 +24,34 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.automate$.subscribe(automate => {
       this.activeFolder = automate[0].folderName;
-      // console.log('asdasd', automate[0].folderName);
       this.files = getFiles(automate, this.activeFolder)[0].files;
     });
   }
 
+  /**
+   * Function called to collapse folder section
+   */
   onCollapsibleFolderBtnClick(event) {
     this.showFolderSection = event;
   }
 
+  /**
+   * Function called to collapse file section
+   */
   onCollapsibleFileBtnClick(event) {
     this.showFileSection = event;
   }
 
+  /**
+   * Function called when active folder is changed
+   */
   onactiveFolderClick(event) {
     this.activeFolder = event;
   }
 
+  /**
+   * Function called when active file is changed
+   */
   onFileDetails(event) {
     this.fileInput = event.activeFile.fileBody;
     this.activeFile = event.activeFile;

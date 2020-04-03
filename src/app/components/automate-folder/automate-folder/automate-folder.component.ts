@@ -29,21 +29,33 @@ export class AutomateFolderComponent implements OnInit {
     this.activeFolderClick.emit(this.activeFolder);
   }
 
+  /**
+   * Function to toggle input box
+   */
   onAddNewFolder() {
     this.showAddFolderInput = true;
   }
 
+  /**
+   * Function to select active box
+   */
   onFolderClick(event, i) {
     this.selectedFolderIndex = i;
     this.activeFolder = event.target.innerText;
     this.activeFolderClick.emit(this.activeFolder);
   }
 
+  /**
+   * Function to toggle folder section
+   */
   collapsibleFolders() {
     this.showFolderSection = !this.showFolderSection;
     this.collapsibleFolderBtnClick.emit( this.showFolderSection);
   }
 
+  /**
+   * Function to create a new folder
+   */
   onNewFolderInput(event) {
     this.activeFolder = event.target.value;
     this.activeFolderClick.emit(this.activeFolder);
@@ -53,6 +65,9 @@ export class AutomateFolderComponent implements OnInit {
     this.selectedFolderIndex = 0;
   }
 
+  /**
+   * Function to fetch all folders
+   */
   fetchFolders() {
     this.automate$.subscribe(automateDetails => {
       this.automateData = automateDetails;
