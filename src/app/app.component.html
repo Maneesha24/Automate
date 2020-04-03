@@ -21,7 +21,7 @@
     </section>
     <!-- ========================= INPUT START =========================== -->
     <section class="card mx-2">
-      <app-automate-input [activeFile]="activeFile" [activeFolder]="activeFolder" [filesData]="files"></app-automate-input>
+      <app-automate-input [activeFile]="activeFile" [activeFolder]="activeFolder" [filesData]="files" (fileUpdateCreate)="onFileUpdate($event)"></app-automate-input>
     </section>
   </main>
 </div>

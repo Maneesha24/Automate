@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { DELETE_FILE, ADD_FILE } from 'src/app/store/actions';
@@ -15,6 +15,8 @@ export class AutomateInputComponent implements OnInit, OnChanges {
   @Input() activeFolder;
 
   @Input() activeFile;
+
+  @Output() fileUpdateCreate: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() filesData;
 
@@ -41,6 +43,7 @@ export class AutomateInputComponent implements OnInit, OnChanges {
     this.ngRedux.dispatch({ type: DELETE_FILE, payload: { folderName: this.activeFolder, id }});
     this.fileInput = '';
     this.activeFile = {};
+    this.fileUpdateCreate.emit(this.activeFolder);
   }
 
   /**
@@ -58,6 +61,7 @@ export class AutomateInputComponent implements OnInit, OnChanges {
         updatedAt: new Date()
       };
       this.ngRedux.dispatch({  type: UPDATE_FILE, payload: { folderName: this.activeFolder, updatedfile }});
+      this.fileUpdateCreate.emit(this.activeFolder);
       this.fileInput = '';
       this.activeFile = {};
     } else {
@@ -68,6 +72,7 @@ export class AutomateInputComponent implements OnInit, OnChanges {
           updatedAt: new Date()
         };
         this.ngRedux.dispatch({  type: ADD_FILE, payload: { folderName: this.activeFolder, file }});
+        this.fileUpdateCreate.emit(this.activeFolder);
         this.fileInput = '';
         this.activeFile = {};
       }

@@ -58,4 +58,8 @@ export class AppComponent implements OnInit {
     this.files = event.totalFiles;
   }
 
+  onFileUpdate(event) {
+    this.activeFolder = event;
+  }
+
 }
